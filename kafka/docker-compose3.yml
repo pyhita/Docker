@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  zoo:
+    image: 'docker.io/bitnami/zookeeper:3.9'
+    hostname: zoo
+    ports:
+      - "2181:2181"
+    volumes:
+      - '/Users/kante_yang/Docker/kafka/store/zk:/bitnami/zookeeper'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  broker1:
+    image: 'docker.io/bitnami/kafka:3.4'
+    hostname: broker1
+    ports:
+      - "9092:9092"
+    volumes:
+      - '/Users/kante_yang/Docker/kafka/store/broker1/data:/bitnami/kafka/data'
+      - '/Users/kante_yang/Docker/kafka/store/broker1/logs:/opt/bitnami/kafka/logs'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zoo:2181
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNAL://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker1:9092,EXTERNAL://localhost:9092
+      - KAFKA_BROKER_ID=1
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zoo
+
+  broker2:
+    image: 'docker.io/bitnami/kafka:3.4'
+    hostname: broker2
+    ports:
+      - "9093:9092"
+    volumes:
+      - '/Users/kante_yang/Docker/kafka/store/broker2/data:/bitnami/kafka/data'
+      - '/Users/kante_yang/Docker/kafka/store/broker2/logs:/opt/bitnami/kafka/logs'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zoo:2181
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNAL://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker2:9092,EXTERNAL://localhost:9093
+      - KAFKA_BROKER_ID=2
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zoo
+
+  broker3:
+    image: 'docker.io/bitnami/kafka:3.4'
+    hostname: broker3
+    ports:
+      - "9094:9092"
+    volumes:
+      - '/Users/kante_yang/Docker/kafka/store/broker3/data:/bitnami/kafka/data'
+      - '/Users/kante_yang/Docker/kafka/store/broker3/logs:/opt/bitnami/kafka/logs'
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zoo:2181
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNAL://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://broker3:9092,EXTERNAL://localhost:9094
+      - KAFKA_BROKER_ID=3
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zoo

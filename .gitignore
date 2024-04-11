@@ -1,0 +1,12 @@
+# Ignore all store directories
+**/store/
+
+# Ignore all rocketmq directories
+**/rocketmq/
+
+# Ignore all data directories
+**/data/
+
+# Ignore all datadir directories
+**/datadir/
+**/etc/
