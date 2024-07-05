@@ -32,7 +32,7 @@ services:
     restart: unless-stopped                                               # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
     volumes:                                         # 数据卷挂载路径设置,将本机目录映射到容器目录
       - "/etc/localtime:/etc/localtime"
-      - "/Users/kante_yang/Docker/kafka-zk/store/zk:/bitnami/zookeeper"
+      - "/Users/pyhita/Docker/kafka-zk/store/zk:/bitnami/zookeeper"
     environment:
       ALLOW_ANONYMOUS_LOGIN: yes
     ports:                                           # 映射端口
@@ -46,7 +46,7 @@ services:
     <<: *kafka-common
     volumes:
       - "/etc/localtime:/etc/localtime"
-      - "/Users/kante_yang/Docker/kafka-zk/store/kafka-1:/bitnami/kafka"
+      - "/Users/pyhita/Docker/kafka-zk/store/kafka-1:/bitnami/kafka"
     environment:
       <<: *kafka-common-env
       KAFKA_CFG_BROKER_ID: 1
@@ -63,7 +63,7 @@ services:
     <<: *kafka-common
     volumes:
       - "/etc/localtime:/etc/localtime"
-      - "/Users/kante_yang/Docker/kafka-zk/store/kafka-2:/bitnami/kafka"
+      - "/Users/pyhita/Docker/kafka-zk/store/kafka-2:/bitnami/kafka"
     environment:
       <<: *kafka-common-env
       KAFKA_CFG_BROKER_ID: 2
@@ -82,7 +82,7 @@ services:
     container_name: kafka-map                                        # 容器名为'kafka-map'
     restart: unless-stopped                                          # 指定容器退出后的重启策略为始终重启，但是不考虑在Docker守护进程启动时就已经停止了的容器
     volumes:
-      - "/Users/kante_yang/Docker/kafka-zk/store/kafka-map/data:/usr/local/kafka-map/data"
+      - "/Users/pyhita/Docker/kafka-zk/store/kafka-map/data:/usr/local/kafka-map/data"
     environment:
       DEFAULT_USERNAME: admin
       DEFAULT_PASSWORD: 123456
